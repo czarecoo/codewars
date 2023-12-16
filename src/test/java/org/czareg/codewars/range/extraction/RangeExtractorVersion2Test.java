@@ -11,14 +11,15 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RangeExtractorTest {
+class RangeExtractorVersion2Test {
 
     @Test
     void test_BasicTests() {
-        assertEquals("10,5,1-3", RangeExtractor.rangeExtraction(new int[]{10, 5, 1, 2, 3}));
-        assertEquals("-6,-3-1,3-5,7-11,14,15,17-20", RangeExtractor.rangeExtraction(new int[]{-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20}));
+        assertEquals("10,5,1-3", RangeExtractorVersion2.rangeExtraction(new int[]{10, 5, 1, 2, 3}));
+        assertEquals("-6,-3-1,3-5,7-11,14,15,17-20", RangeExtractorVersion2.rangeExtraction(new int[]{-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20}));
+        assertEquals("-6,-3-1,3-5,7-11,14,15,17-20", RangeExtractorVersion2.rangeExtraction(new int[]{-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20}));
 
-        assertEquals("-3--1,2,10,15,16,18-20", RangeExtractor.rangeExtraction(new int[]{-3, -2, -1, 2, 10, 15, 16, 18, 19, 20}));
+        assertEquals("-3--1,2,10,15,16,18-20", RangeExtractorVersion2.rangeExtraction(new int[]{-3, -2, -1, 2, 10, 15, 16, 18, 19, 20}));
     }
 
     private String rangeExtraction(int[] arr) {
@@ -71,7 +72,7 @@ class RangeExtractorTest {
                 n += rnd.nextInt(3) + 1;
             }
             assertEquals(rangeExtraction(arr),
-                    RangeExtractor.rangeExtraction(Arrays.copyOf(arr, len))
+                    RangeExtractorVersion2.rangeExtraction(Arrays.copyOf(arr, len))
                     , "It should work for random inputs too");
         }
     }
