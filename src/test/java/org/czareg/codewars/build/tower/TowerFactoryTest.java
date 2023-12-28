@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TowerFactoryTest {
 
-    public static char BLOCK_CHAR = '*';
-    public static char SPACE_CHAR = ' ';
+    private static final char BLOCK_CHAR = '*';
+    private static final char SPACE_CHAR = ' ';
 
     @Test
     void basicTests() {

@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PigLatinTest {
 
+    private static final String SPACE = " ";
+
     @Test
     void fixedTests() {
         assertEquals("igPay atinlay siay oolcay", PigLatin.pigIt("Pig latin is cool"));
@@ -36,10 +38,10 @@ class PigLatinTest {
         assertEquals("eniVay idivay icivay", PigLatin.pigIt("Veni vidi vici"));
     }
 
-    private static String join(String delim, String... parts) {
+    private static String join(String... parts) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < parts.length - 1; i++) {
-            builder.append(parts[i]).append(delim);
+            builder.append(parts[i]).append(SPACE);
         }
         if (parts.length > 0) {
             builder.append(parts[parts.length - 1]);
@@ -69,7 +71,7 @@ class PigLatinTest {
                 s[j] = generateRandomChars(
                         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", random.nextInt(10) + 3);
             }
-            String X = join(" ", s);
+            String X = join(s);
             assertEquals(C(X), PigLatin.pigIt(X));
         }
     }

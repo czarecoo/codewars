@@ -32,7 +32,7 @@ class VowelCounterTest {
             int x = random(20, 100);
 
             for (int j = 0; j++ < x; )
-                str.append("").append(alpha.charAt(random(0, 26)));
+                str.append(alpha.charAt(random(0, 26)));
 
             assertEquals(solution(str.toString()), VowelCounter.getCount(str.toString()));
         }

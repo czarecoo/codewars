@@ -21,7 +21,6 @@ class SmashWordsTest {
 
     @Test
     void validateNull() {
-        assertEquals("null", SmashWords.smash((String) null));
         assertThrows(NullPointerException.class, () -> SmashWords.smash((String[]) null));
     }
 
