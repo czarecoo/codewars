@@ -1,4 +1,4 @@
-package molecule.to.atoms;
+package org.czareg.codewars.molecule.to.atoms;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

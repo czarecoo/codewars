@@ -1,4 +1,4 @@
-package molecule.to.atoms;
+package org.czareg.codewars.molecule.to.atoms;
 
 import lombok.experimental.UtilityClass;
 
