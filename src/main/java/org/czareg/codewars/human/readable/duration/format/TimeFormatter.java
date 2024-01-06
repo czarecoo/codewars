@@ -47,11 +47,11 @@ public class TimeFormatter {
         long remainingSeconds = seconds % 60;
 
         StringBuilder stringBuilder = new StringBuilder();
-        addToListIfNeeded(stringBuilder, years, "year");
-        addToListIfNeeded(stringBuilder, days, "day");
-        addToListIfNeeded(stringBuilder, hours, "hour");
-        addToListIfNeeded(stringBuilder, minutes, "minute");
-        addToListIfNeeded(stringBuilder, remainingSeconds, "second");
+        addIfCorrect(stringBuilder, years, "year");
+        addIfCorrect(stringBuilder, days, "day");
+        addIfCorrect(stringBuilder, hours, "hour");
+        addIfCorrect(stringBuilder, minutes, "minute");
+        addIfCorrect(stringBuilder, remainingSeconds, "second");
         int lastIndexOfDelimiter = stringBuilder.lastIndexOf(",");
         if (lastIndexOfDelimiter != -1) {
             stringBuilder.replace(lastIndexOfDelimiter, lastIndexOfDelimiter + 1, " and");
@@ -59,7 +59,7 @@ public class TimeFormatter {
         return stringBuilder.toString();
     }
 
-    private static void addToListIfNeeded(StringBuilder stringBuilder, long duration, String singular) {
+    private static void addIfCorrect(StringBuilder stringBuilder, long duration, String singular) {
         if (duration > 0) {
             String durationText = duration == 1 ? singular : singular + "s";
             if (!stringBuilder.isEmpty()) {
