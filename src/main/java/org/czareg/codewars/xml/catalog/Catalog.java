@@ -1,6 +1,5 @@
 package org.czareg.codewars.xml.catalog;
 
-import lombok.Builder;
 import lombok.experimental.UtilityClass;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /*
 You are given a small extract of a catalog:
@@ -46,15 +44,16 @@ The same article may appear more than once. If that happens return all the lines
 @UtilityClass
 public class Catalog {
 
-    @Builder
     record Product(String name, String price, String quantity) {
     }
 
     public static String catalog(String s, String article) {
-        return parseXmlToListOfProducts(s).stream()
+        String xml = "<root>" + s + "</root>";
+        List<String> results = parseXmlToListOfProducts(xml).stream()
                 .filter(product -> product.name().contains(article))
                 .map(product -> "%s > prx: $%s qty: %s".formatted(product.name(), product.price(), product.quantity()))
-                .collect(Collectors.joining("\n"));
+                .toList();
+        return results.isEmpty() ? "Nothing" : String.join("\n", results);
     }
 
     private static List<Product> parseXmlToListOfProducts(String s) {
@@ -78,7 +77,9 @@ public class Catalog {
     }
 
     private static Product parseProduct(Element prodElement) {
-        Product.ProductBuilder productBuilder = Product.builder();
+        String name = null;
+        String price = null;
+        String quantity = null;
         NodeList childNodes = prodElement.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node node = childNodes.item(i);
@@ -89,19 +90,19 @@ public class Catalog {
 
                 switch (nodeName) {
                     case "name":
-                        productBuilder.name(textContent);
+                        name = textContent;
                         break;
                     case "prx":
-                        productBuilder.price(textContent);
+                        price = textContent;
                         break;
                     case "qty":
-                        productBuilder.quantity(textContent);
+                        quantity = textContent;
                         break;
                     default:
                         throw new IllegalStateException();
                 }
             }
         }
-        return productBuilder.build();
+        return new Product(name, price, quantity);
     }
 }
