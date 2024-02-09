@@ -6,7 +6,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SolutionTest {
+class LikesToTextTest {
 
     private static final String[] NAMES = new String[]{"Brian", "Marilyn", "Pamela", "Timothy", "Jesse", "Heather", "Terry", "Carlos",
             "Bonnie", "Randy", "Lillian", "Emily", "Louis", "Chris", "Howard", "Helen", "Ralph", "Jennifer", "Mark", "Laura",
@@ -20,12 +20,12 @@ class SolutionTest {
 
     @Test
     void staticTests() {
-        assertEquals("no one likes this", Solution.whoLikesIt());
-        assertEquals("Peter likes this", Solution.whoLikesIt("Peter"));
-        assertEquals("Jacob and Alex like this", Solution.whoLikesIt("Jacob", "Alex"));
-        assertEquals("Max, John and Mark like this", Solution.whoLikesIt("Max", "John", "Mark"));
-        assertEquals("Alex, Jacob and 2 others like this", Solution.whoLikesIt("Alex", "Jacob", "Mark", "Max"));
-        assertEquals("Brian, Marilyn and 98 others like this", Solution.whoLikesIt(NAMES));
+        assertEquals("no one likes this", LikesToText.whoLikesIt());
+        assertEquals("Peter likes this", LikesToText.whoLikesIt("Peter"));
+        assertEquals("Jacob and Alex like this", LikesToText.whoLikesIt("Jacob", "Alex"));
+        assertEquals("Max, John and Mark like this", LikesToText.whoLikesIt("Max", "John", "Mark"));
+        assertEquals("Alex, Jacob and 2 others like this", LikesToText.whoLikesIt("Alex", "Jacob", "Mark", "Max"));
+        assertEquals("Brian, Marilyn and 98 others like this", LikesToText.whoLikesIt(NAMES));
     }
 
     @Test
@@ -35,7 +35,7 @@ class SolutionTest {
             int r = rand.nextInt(100);
             String[] randNames = new String[r];
             for (int j = 0; j < r; j++) randNames[j] = NAMES[rand.nextInt(100)];
-            assertEquals(whoLikesIt(randNames), Solution.whoLikesIt(randNames));
+            assertEquals(whoLikesIt(randNames), LikesToText.whoLikesIt(randNames));
         }
     }
 

@@ -15,7 +15,7 @@ Implement the function which takes an array containing the names of people that 
 Note: For 4 or more names, the number in "and 2 others" simply increases.
  */
 @UtilityClass
-public class Solution {
+public class LikesToText {
 
     public static String whoLikesIt(String... names) {
         return switch (names.length) {
