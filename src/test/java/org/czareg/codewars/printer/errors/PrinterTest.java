@@ -1,4 +1,4 @@
-package printer.errors;
+package org.czareg.codewars.printer.errors;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package printer.errors;
+package org.czareg.codewars.printer.errors;
 
 import lombok.experimental.UtilityClass;
 
