@@ -1,5 +1,7 @@
 package org.czareg.codewars.connect.four;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
 import java.util.*;
@@ -26,20 +28,18 @@ public class ConnectFour {
             "A", 0, "B", 1, "C", 2, "D", 3, "E", 4, "F", 5, "G", 6
     );
 
+    private static final int BOARD_HEIGHT = 6;
+    private static final int BOARD_WIDTH = 7;
+    private static final int WINNING_LENGTH = 4;
+
+    @Getter
+    @RequiredArgsConstructor
     enum Color {
 
         YELLOW("Yellow"),
         RED("Red");
 
         private final String text;
-
-        Color(String text) {
-            this.text = text;
-        }
-
-        public String getText() {
-            return text;
-        }
     }
 
     public static String whoIsWinner(List<String> moves) {
@@ -62,40 +62,32 @@ public class ConnectFour {
     }
 
     private static String checkWhoWon(List<List<Color>> board) {
-        Color winner;
-        winner = checkVertical(board);
-        if (winner != null) {
-            return winner.getText();
-        }
-        winner = checkHorizontal(board);
-        if (winner != null) {
-            return winner.getText();
-        }
-        winner = checkDiagonally(board);
-        if (winner != null) {
-            return winner.getText();
-        }
-        return null;
+        return checkVertical(board)
+                .or(() -> checkHorizontal(board))
+                .or(() -> checkDiagonallyFromUpperLeft(board))
+                .or(() -> checkDiagonallyFromUpperRight(board))
+                .map(Color::getText)
+                .orElse(null);
     }
 
-    private static Color checkVertical(List<List<Color>> board) {
+    private static Optional<Color> checkVertical(List<List<Color>> board) {
         Deque<Color> deque = new LinkedList<>();
         for (List<Color> colors : board) {
             for (Color color : colors) {
                 addLastIfOverMaxRemoveFirst(color, deque);
                 if (didSomeoneWin(deque)) {
-                    return deque.peekFirst();
+                    return Optional.ofNullable(deque.peekFirst());
                 }
             }
             deque.clear();
         }
-        return null;
+        return Optional.empty();
     }
 
-    private static Color checkHorizontal(List<List<Color>> board) {
+    private static Optional<Color> checkHorizontal(List<List<Color>> board) {
         Deque<Color> deque = new LinkedList<>();
-        for (int rowIndex = 0; rowIndex < 6; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < 7; columnIndex++) {
+        for (int rowIndex = 0; rowIndex < BOARD_HEIGHT; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < BOARD_WIDTH; columnIndex++) {
                 List<Color> column = board.get(columnIndex);
                 if (rowIndex > column.size() - 1) {
                     deque.clear();
@@ -104,65 +96,62 @@ public class ConnectFour {
                 Color color = column.get(rowIndex);
                 addLastIfOverMaxRemoveFirst(color, deque);
                 if (didSomeoneWin(deque)) {
-                    return deque.peekFirst();
+                    return Optional.ofNullable(deque.peekFirst());
                 }
             }
             deque.clear();
         }
-        return null;
+        return Optional.empty();
     }
 
-    private static Color checkDiagonally(List<List<Color>> board) {
+    private static Optional<Color> checkDiagonallyFromUpperLeft(List<List<Color>> board) {
         Deque<Color> deque = new LinkedList<>();
-
         for (int row = 3; row < 6; row++) {
             for (int col = 0; col < 4; col++) {
                 deque.clear();
-                for (int k = 0; k < 4; k++) {
-                    if (board.get(col + k).size() > row - k) {
-                        addLastIfOverMaxRemoveFirst(board.get(col + k).get(row - k), deque);
+                for (int offset = 0; offset < 4; offset++) {
+                    if (board.get(col + offset).size() > row - offset) {
+                        addLastIfOverMaxRemoveFirst(board.get(col + offset).get(row - offset), deque);
                     }
                 }
                 if (didSomeoneWin(deque)) {
-                    return deque.peekFirst();
+                    return Optional.ofNullable(deque.peekFirst());
                 }
             }
         }
+        return Optional.empty();
+    }
 
+    private static Optional<Color> checkDiagonallyFromUpperRight(List<List<Color>> board) {
+        Deque<Color> deque = new LinkedList<>();
         for (int row = 3; row < 6; row++) {
             for (int col = 6; col > 2; col--) {
                 deque.clear();
-                for (int k = 0; k < 4; k++) {
-                    if (board.get(col - k).size() > row - k) {
-                        addLastIfOverMaxRemoveFirst(board.get(col - k).get(row - k), deque);
+                for (int offset = 0; offset < 4; offset++) {
+                    if (board.get(col - offset).size() > row - offset) {
+                        addLastIfOverMaxRemoveFirst(board.get(col - offset).get(row - offset), deque);
                     }
                 }
                 if (didSomeoneWin(deque)) {
-                    return deque.peekFirst();
+                    return Optional.ofNullable(deque.peekFirst());
                 }
             }
         }
-
-        return null;
+        return Optional.empty();
     }
 
     private static void addLastIfOverMaxRemoveFirst(Color color, Deque<Color> deque) {
         deque.addLast(color);
-        if (deque.size() > 4) {
+        if (deque.size() > WINNING_LENGTH) {
             deque.removeFirst();
         }
     }
 
     private static boolean didSomeoneWin(Deque<Color> deque) {
-        if (deque.size() != 4) {
+        if (deque.size() < WINNING_LENGTH) {
             return false;
         }
         Color firstColor = deque.peekFirst();
-        for (Color color : deque) {
-            if (color != firstColor) {
-                return false;
-            }
-        }
-        return true;
+        return deque.stream().allMatch(firstColor::equals);
     }
 }
