@@ -10,8 +10,9 @@ For example, running this function on the array ['i', 'have','no','space'] would
 public class OutOfSpace {
 
     public static String[] spacey(String[] array) {
-        for (int currentIndex = 1; currentIndex < array.length; currentIndex++) {
-            array[currentIndex] = array[currentIndex - 1] + array[currentIndex];
+        for (int i = 1; i < array.length; i++) {
+            String previous = array[i - 1];
+            array[i] = previous + array[i];
         }
         return array;
     }
