@@ -24,7 +24,6 @@ class NeedleFinderTest {
     @Test
     void randomTests() {
         Random randGen = new Random();
-        System.out.println("Testing 25 random haystacks...");
         for (int i = 0; i < 25; i++) {
             Object[] junk = new Object[25];
             int randI = randGen.nextInt(25);
