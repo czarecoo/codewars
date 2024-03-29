@@ -2,6 +2,7 @@ package org.czareg.codewars.pagination.helper;
 
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -149,5 +150,52 @@ class PaginationHelperTest {
                     rnd.ints(rnd.nextLong(5L), 32, 128).collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
             default -> new Object();
         };
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("Edge case: methods should return correct values after new elements are added to the list")
+    void edgeCase3() {
+        List<String> list = new ArrayList<>();
+        PaginationHelper<?> empty = new PaginationHelper<>(list, 3);
+        assertEquals(0, empty.itemCount());
+        assertEquals(0, empty.pageCount());
+        assertEquals(-1, empty.pageIndex(0));
+        assertEquals(-1, empty.pageItemCount(0));
+
+        list.add("1");
+        assertEquals(1, empty.itemCount());
+        assertEquals(1, empty.pageCount());
+        assertEquals(0, empty.pageIndex(0));
+        assertEquals(1, empty.pageItemCount(0));
+
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        assertEquals(4, empty.itemCount());
+        assertEquals(2, empty.pageCount());
+        assertEquals(0, empty.pageIndex(0));
+        assertEquals(0, empty.pageIndex(1));
+        assertEquals(1, empty.pageIndex(3));
+        assertEquals(3, empty.pageItemCount(0));
+        assertEquals(1, empty.pageItemCount(1));
+
+        list.add("5");
+        list.add("6");
+        list.add("7");
+        list.add("8");
+        list.add("9");
+        list.add("10");
+
+        assertEquals(10, empty.itemCount());
+        assertEquals(4, empty.pageCount());
+        assertEquals(0, empty.pageIndex(0));
+        assertEquals(0, empty.pageIndex(1));
+        assertEquals(1, empty.pageIndex(3));
+        assertEquals(2, empty.pageIndex(7));
+        assertEquals(3, empty.pageIndex(9));
+        assertEquals(3, empty.pageItemCount(0));
+        assertEquals(3, empty.pageItemCount(1));
+        assertEquals(1, empty.pageItemCount(3));
     }
 }
