@@ -2,7 +2,9 @@ package org.czareg.codewars.colored.hexes;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Predicate;
 
 /*
 You're looking through different hex codes, and having trouble telling the difference between #000001 and #100000
@@ -19,18 +21,31 @@ One last thing, if the string given is empty, or has all 0's, return black!
 @UtilityClass
 public class ColoredHex {
 
+    private static final Map<String, Predicate<Color>> COLOR_NAMES = new HashMap<>();
+
+    static {
+        COLOR_NAMES.put("white", c -> c.isMono() && !c.isBlack());
+        COLOR_NAMES.put("black", Color::isBlack);
+        COLOR_NAMES.put("red", c -> c.red() > c.green() && c.red() > c.blue());
+        COLOR_NAMES.put("green", c -> c.green() > c.red() && c.green() > c.blue());
+        COLOR_NAMES.put("blue", c -> c.blue() > c.green() && c.blue() > c.red());
+        COLOR_NAMES.put("magenta", c -> c.red() == c.blue() && c.red() > c.green());
+        COLOR_NAMES.put("yellow", c -> c.green() == c.red() && c.green() > c.blue());
+        COLOR_NAMES.put("cyan", c -> c.blue() == c.green() && c.blue() > c.red());
+    }
+
     public static String hexColor(String codes) {
         Color color = Color.of(codes);
-        return Stream.of(new WhiteNamer(), new BlackNamer(),
-                        new RedNamer(), new GreenNamer(), new BlueNamer(),
-                        new MagentaNamer(), new YellowNamer(), new CyanNamer())
-                .filter(colorNamer -> colorNamer.isApplicable(color))
+        return COLOR_NAMES.entrySet()
+                .stream()
+                .filter(names -> names.getValue().test(color))
+                .map(Map.Entry::getKey)
                 .findFirst()
-                .orElseThrow()
-                .name(color);
+                .orElseThrow();
     }
 
     record Color(int red, int green, int blue) {
+
         private static final Color BLACK = new Color(0, 0, 0);
 
         boolean isMono() {
@@ -50,108 +65,6 @@ public class ColoredHex {
             int green = Integer.parseInt(split[1]);
             int blue = Integer.parseInt(split[2]);
             return new Color(red, green, blue);
-        }
-    }
-
-    interface ColorNamer {
-        boolean isApplicable(Color color);
-
-        String name(Color color);
-    }
-
-    static class WhiteNamer implements ColorNamer {
-        @Override
-        public boolean isApplicable(Color color) {
-            return color.isMono() && !color.isBlack();
-        }
-
-        @Override
-        public String name(Color color) {
-            return "white";
-        }
-    }
-
-    static class BlackNamer implements ColorNamer {
-        @Override
-        public boolean isApplicable(Color color) {
-            return color.isBlack();
-        }
-
-        @Override
-        public String name(Color color) {
-            return "black";
-        }
-    }
-
-    static class RedNamer implements ColorNamer {
-        @Override
-        public boolean isApplicable(Color color) {
-            return color.red() > color.green() && color.red() > color.blue();
-        }
-
-        @Override
-        public String name(Color color) {
-            return "red";
-        }
-    }
-
-    static class GreenNamer implements ColorNamer {
-        @Override
-        public boolean isApplicable(Color color) {
-            return color.green() > color.red() && color.green() > color.blue();
-        }
-
-        @Override
-        public String name(Color color) {
-            return "green";
-        }
-    }
-
-    static class BlueNamer implements ColorNamer {
-        @Override
-        public boolean isApplicable(Color color) {
-            return color.blue() > color.green() && color.blue() > color.red();
-        }
-
-        @Override
-        public String name(Color color) {
-            return "blue";
-        }
-    }
-
-    static class MagentaNamer implements ColorNamer {
-        @Override
-        public boolean isApplicable(Color color) {
-            return color.red() == color.blue() && color.red() > color.green();
-        }
-
-        @Override
-        public String name(Color color) {
-            return "magenta";
-        }
-    }
-
-    static class YellowNamer implements ColorNamer {
-        @Override
-        public boolean isApplicable(Color color) {
-            return color.green() == color.red() && color.green() > color.blue();
-        }
-
-        @Override
-        public String name(Color color) {
-            return "yellow";
-        }
-    }
-
-    static class CyanNamer implements ColorNamer {
-        @Override
-        public boolean isApplicable(Color color) {
-            return color.blue() == color.green() && color.blue() > color.red();
-        }
-
-        @Override
-        public String name(Color color) {
-            return "cyan";
         }
     }
 }
