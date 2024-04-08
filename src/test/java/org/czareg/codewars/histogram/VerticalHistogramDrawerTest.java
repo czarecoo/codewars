@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class HistogramDrawerTest {
+class VerticalHistogramDrawerTest {
 
     @Test
     void basic() {
@@ -25,7 +25,7 @@ class HistogramDrawerTest {
                 -----------
                 1 2 3 4 5 6
                 """;
-        assertEquals(expected, HistogramDrawer.histogram(new int[]{7, 3, 10, 1, 0, 5}));
+        assertEquals(expected, VerticalHistogramDrawer.histogram(new int[]{7, 3, 10, 1, 0, 5}));
     }
 
     @Test
@@ -34,7 +34,7 @@ class HistogramDrawerTest {
                 -----------
                 1 2 3 4 5 6
                 """;
-        assertEquals(expected, HistogramDrawer.histogram(new int[]{0, 0, 0, 0, 0, 0}));
+        assertEquals(expected, VerticalHistogramDrawer.histogram(new int[]{0, 0, 0, 0, 0, 0}));
     }
 
     @Test
@@ -45,7 +45,7 @@ class HistogramDrawerTest {
                 int result = (int) (Math.random() * 6) + 1;
                 results[result - 1]++;
             }
-            assertEquals(solution(results), HistogramDrawer.histogram(results));
+            assertEquals(solution(results), VerticalHistogramDrawer.histogram(results));
         }
     }
 

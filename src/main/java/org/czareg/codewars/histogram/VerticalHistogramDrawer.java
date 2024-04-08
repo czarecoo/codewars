@@ -32,7 +32,7 @@ A count is displayed above each bar (unless the count is 0)
 The number of rolls may vary but is always less than 100
 */
 @UtilityClass
-public class HistogramDrawer {
+public class VerticalHistogramDrawer {
 
     public static String histogram(final int[] results) {
         int allRows = calculateRows(results);
