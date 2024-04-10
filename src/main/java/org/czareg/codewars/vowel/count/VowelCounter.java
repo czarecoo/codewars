@@ -20,7 +20,7 @@ public class VowelCounter {
                 .count();
     }
 
-    private static boolean isVowel(@NonNull char c) {
+    private static boolean isVowel(char c) {
         return switch (c) {
             case 'a', 'e', 'i', 'o', 'u' -> true;
             default -> false;
