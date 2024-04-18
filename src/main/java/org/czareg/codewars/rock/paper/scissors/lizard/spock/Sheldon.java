@@ -1,6 +1,7 @@
 package org.czareg.codewars.rock.paper.scissors.lizard.spock;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 @UtilityClass
 public class Sheldon {
 
-    public static String rpsls(String player1, String player2) {
+    public static String rpsls(@NonNull String player1, @NonNull String player2) {
         Shape firstShape = Shape.valueOf(player1.toUpperCase());
         Shape secondShape = Shape.valueOf(player2.toUpperCase());
         Result result = Game.play(firstShape, secondShape);
