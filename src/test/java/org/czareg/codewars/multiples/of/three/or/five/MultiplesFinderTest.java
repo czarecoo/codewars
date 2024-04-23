@@ -1,4 +1,4 @@
-package multiples.of.three.or.five;
+package org.czareg.codewars.multiples.of.three.or.five;
 
 import org.junit.jupiter.api.Test;
 
