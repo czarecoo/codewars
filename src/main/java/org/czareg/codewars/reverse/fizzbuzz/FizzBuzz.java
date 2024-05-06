@@ -2,8 +2,12 @@ package org.czareg.codewars.reverse.fizzbuzz;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toCollection;
 
 /*
 FizzBuzz is often one of the first programming puzzles people learn. Now undo it with reverse FizzBuzz!
@@ -24,6 +28,8 @@ reverse_fizzbuzz("Fizz Buzz")              -->  [9, 10]
 @UtilityClass
 public class FizzBuzz {
 
+    private static final Pattern IS_DIGITS_ONLY = Pattern.compile("\\d+");
+
     public static List<Integer> reverseFizzBuzz(String input) {
         if (input == null || input.isEmpty()) {
             return List.of();
@@ -39,9 +45,8 @@ public class FizzBuzz {
     }
 
     private static List<Integer> calculate(String input) {
-        List<NumberOrType> numberOrTypes = Arrays.stream(input.split(" "))
-                .map(NumberOrType::new)
-                .toList();
+        List<String> numberOrTypes = stream(input.split(" "))
+                .collect(toCollection(ArrayList::new));
 
         for (int i = 0; i < numberOrTypes.size(); i++) {
             tryToReplaceForIndex(numberOrTypes, i);
@@ -49,65 +54,30 @@ public class FizzBuzz {
         tryToReplaceForIndex(numberOrTypes, 0);
         tryToReplaceForIndex(numberOrTypes, numberOrTypes.size() - 1);
 
-        return numberOrTypes.stream().filter(NumberOrType::isNumber).map(NumberOrType::getNum).toList();
+        return numberOrTypes.stream().map(Integer::valueOf).toList();
     }
 
-    private static void tryToReplaceForIndex(List<NumberOrType> numberOrTypes, int i) {
-        NumberOrType current = numberOrTypes.get(i);
-        if (current.isNumber()) {
+    private static void tryToReplaceForIndex(List<String> numberOrTypes, int i) {
+        String current = numberOrTypes.get(i);
+        if (isNumber(current)) {
             return;
         }
         if (i - 1 >= 0) {
-            NumberOrType prev = numberOrTypes.get(i - 1);
-            if (prev.isNumber()) {
-                current.set(prev.getNum() + 1);
+            String prev = numberOrTypes.get(i - 1);
+            if (isNumber(prev)) {
+                numberOrTypes.set(i, String.valueOf(Integer.parseInt(prev) + 1));
             }
         }
 
         if (i + 1 < numberOrTypes.size()) {
-            NumberOrType next = numberOrTypes.get(i + 1);
-            if (next.isNumber()) {
-                current.set(next.getNum() - 1);
+            String next = numberOrTypes.get(i + 1);
+            if (isNumber(next)) {
+                numberOrTypes.set(i, String.valueOf(Integer.parseInt(next) - 1));
             }
         }
     }
-}
 
-enum Type {
-    NUMBER, FIZZ, BUZZ, FIZZBUZZ;
-
-    static Type getType(String token) {
-        return Arrays.stream(Type.values())
-                .filter(type -> type.name().equalsIgnoreCase(token))
-                .findFirst().orElse(NUMBER);
-    }
-
-    boolean isNumber() {
-        return this == NUMBER;
-    }
-}
-
-class NumberOrType {
-    Type type;
-    int num;
-
-    public NumberOrType(String token) {
-        type = Type.getType(token);
-        if (type == Type.NUMBER) {
-            num = Integer.parseInt(token);
-        }
-    }
-
-    public boolean isNumber() {
-        return type.isNumber();
-    }
-
-    public void set(int number) {
-        type = Type.NUMBER;
-        num = number;
-    }
-
-    public int getNum() {
-        return num;
+    private static boolean isNumber(String input) {
+        return IS_DIGITS_ONLY.matcher(input).matches();
     }
 }
