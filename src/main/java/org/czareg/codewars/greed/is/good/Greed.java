@@ -2,12 +2,8 @@ package org.czareg.codewars.greed.is.good;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /*
 Greed is a dice game played with five six-sided dice. Your mission, should you choose to accept it, is to score a throw according to these rules. You will always be given an array with five six-sided dice values.
@@ -49,32 +45,21 @@ public class Greed {
     );
 
     public static int greedy(int[] dice) {
+        Map<Integer, Integer> valueByCount = new HashMap<>();
+        for (int die : dice) {
+            int previousCount = valueByCount.getOrDefault(die, 0);
+            valueByCount.put(die, previousCount + 1);
+        }
+
         int sum = 0;
-        List<Map.Entry<Integer, Long>> valueCount = Arrays.stream(dice)
-                .boxed()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .collect(Collectors.toList());
-        while (!valueCount.isEmpty()) {
-            Map.Entry<Integer, Long> entry = valueCount.getFirst();
+        for (Map.Entry<Integer, Integer> entry : valueByCount.entrySet()) {
             int value = entry.getKey();
-            int count = entry.getValue().intValue();
+            int count = entry.getValue();
             if (count >= 3) {
-                sum += THREE_SCORING.get(value);
-                int reminder = count - 3;
-                if (reminder == 0) {
-                    valueCount.remove(entry);
-                } else {
-                    entry.setValue((long) reminder);
-                }
-            } else {
-                if (ONE_SCORING.containsKey(value)) {
-                    sum += ONE_SCORING.get(value) * count;
-                }
-                valueCount.remove(entry);
+                sum += THREE_SCORING.getOrDefault(value, 0);
+                count -= 3;
             }
+            sum += ONE_SCORING.getOrDefault(value, 0) * count;
         }
         return sum;
     }
