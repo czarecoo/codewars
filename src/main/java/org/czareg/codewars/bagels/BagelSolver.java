@@ -8,9 +8,9 @@ See Bagel.class
 The catch? For the solution, we're testing that the result is equal to 4. But as a little hint, the solution to this Kata is (almost) exactly the same as the example test cases.
  */
 @UtilityClass
-public class BagelSolver {
+class BagelSolver {
 
-    public static Bagel getBagel() {
+    static Bagel getBagel() {
         return new Bagel();
     }
 }
