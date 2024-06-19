@@ -12,9 +12,9 @@ accum("cwAt") -> "C-Ww-Aaa-Tttt"
 The parameter of accum is a string which includes only letters from a..z and A..Z.
  */
 @UtilityClass
-public class Accumulator {
+class Accumulator {
 
-    public static String accum(String s) {
+    static String accum(String s) {
         String lowercaseInput = s.toLowerCase();
         StringBuilder result = new StringBuilder();
         for (int index = 0; index < lowercaseInput.length(); index++) {
