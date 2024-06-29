@@ -24,7 +24,7 @@ class FakeBinaryTest {
 
         for (int i = 0; i < 100; i++) {
             String s = IntStream.range(0, random.nextInt(100) + 1)
-                    .mapToObj(_ -> Character.toString(chars.charAt(random.nextInt(chars.length()))))
+                    .mapToObj(unused -> Character.toString(chars.charAt(random.nextInt(chars.length()))))
                     .collect(Collectors.joining());
             String solution = solution(s);
             assertEquals(solution, FakeBinary.fakeBin(s));

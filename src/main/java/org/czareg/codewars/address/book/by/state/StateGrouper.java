@@ -57,7 +57,7 @@ public class StateGrouper {
                             addresses.sort(comparing(Address::fullName));
                             return addresses;
                         },
-                        (e1, _) -> e1,
+                        (e1, unused) -> e1,
                         LinkedHashMap::new
                 ));
     }
