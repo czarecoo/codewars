@@ -18,7 +18,6 @@ An array (guaranteed non-associative in PHP) representing the genders of the att
 
 true if Arthur need to invite more women, false otherwise.
  */
-
 class Inviter {
 
     static def inviteMoreWomen(arr) {

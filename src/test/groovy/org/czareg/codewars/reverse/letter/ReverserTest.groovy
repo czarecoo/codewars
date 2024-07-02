@@ -1,6 +1,5 @@
 package org.czareg.codewars.reverse.letter
 
-
 import org.junit.jupiter.api.Test
 
 class ReverserTest {

@@ -1,6 +1,5 @@
 package org.czareg.codewars.count.characters.in.your.string
 
-
 import org.junit.jupiter.api.Test
 
 class CharactersCountTest {
