@@ -1,4 +1,5 @@
-package org.czareg.codewars.sum.of.positives.reverse.letter
+package org.czareg.codewars.reverse.letter
+
 
 import org.junit.jupiter.api.Test
 

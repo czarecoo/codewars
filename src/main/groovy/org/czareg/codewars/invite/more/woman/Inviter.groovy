@@ -1,4 +1,4 @@
-package org.czareg.codewars.sum.of.positives.invite.more.woman
+package org.czareg.codewars.invite.more.woman
 
 /*
 Task
