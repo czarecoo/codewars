@@ -20,13 +20,13 @@ class PresentsCounterTest {
 
     @Test
     void "Random tests"() {
-        def r = new Random()
+        def random = new Random()
         150.times {
             def gifts = []
-            r.nextInt(999).times {
-                gifts << r.nextInt(20)
+            random.nextInt(999).times {
+                gifts << random.nextInt(20)
             }
-            def maxBudget = r.nextInt(999)
+            def maxBudget = random.nextInt(999)
             assert PresentsCounter.howManyGifts(maxBudget, gifts) == solution(maxBudget, gifts)
         }
     }
