@@ -1,6 +1,5 @@
 package org.czareg.codewars.survive.the.attack;
 
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
@@ -33,21 +32,17 @@ attackers=[ 1, 3, 5, 7 ]   defenders=[ 2, 4, 0, 8 ]
 public class AttackSimulator {
 
     public static boolean block(int[] attackers, int[] defenders) {
-        Attack attack = new Attack(attackers, defenders);
-        attack.simulate();
-        return attack.isSurvived();
+        SimulationResult simulationResult = Simulator.simulate(attackers, defenders);
+        return SurvivalChecker.isSurvived(simulationResult);
     }
 
-    @RequiredArgsConstructor
-    class Attack {
 
-        private final int[] attackers;
-        private final int[] defenders;
+    @UtilityClass
+    class Simulator {
 
-        private int attackerSurvivors = 0;
-        private int defenderSurvivors = 0;
-
-        void simulate() {
+        static SimulationResult simulate(int[] attackers, int[] defenders) {
+            int attackerSurvivors = 0;
+            int defenderSurvivors = 0;
             int maxIndex = Math.max(attackers.length, defenders.length);
             for (int index = 0; index < maxIndex; index++) {
                 int attackerPower = getPower(index, attackers);
@@ -58,22 +53,7 @@ public class AttackSimulator {
                     attackerSurvivors++;
                 }
             }
-        }
-
-        boolean isSurvived() {
-            if (attackerSurvivors > defenderSurvivors) {
-                return false;
-            } else if (attackerSurvivors < defenderSurvivors) {
-                return true;
-            } else {
-                int initialAttackPower = getInitialPower(attackers);
-                int initialDefenderPower = getInitialPower(defenders);
-                return initialDefenderPower >= initialAttackPower;
-            }
-        }
-
-        private int getInitialPower(int[] soldiers) {
-            return Arrays.stream(soldiers).sum();
+            return new SimulationResult(attackerSurvivors, defenderSurvivors, getInitialPower(attackers), getInitialPower(defenders));
         }
 
         private static int getPower(int index, int[] array) {
@@ -81,6 +61,32 @@ public class AttackSimulator {
                 return array[index];
             }
             return -1;
+        }
+
+        private static int getInitialPower(int[] soldiers) {
+            return Arrays.stream(soldiers).sum();
+        }
+    }
+
+    record SimulationResult(int attackerSurvivors, int defenderSurvivors, int initialAttackersPower,
+                            int initialDefendersPower) {
+    }
+
+    @UtilityClass
+    class SurvivalChecker {
+
+        static boolean isSurvived(SimulationResult simulationResult) {
+            int attackerSurvivors = simulationResult.attackerSurvivors();
+            int defenderSurvivors = simulationResult.defenderSurvivors();
+            if (attackerSurvivors > defenderSurvivors) {
+                return false;
+            } else if (attackerSurvivors < defenderSurvivors) {
+                return true;
+            } else {
+                int initialAttackPower = simulationResult.initialAttackersPower();
+                int initialDefenderPower = simulationResult.initialDefendersPower();
+                return initialDefenderPower >= initialAttackPower;
+            }
         }
     }
 }
