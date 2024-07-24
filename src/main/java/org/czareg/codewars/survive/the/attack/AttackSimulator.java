@@ -1,5 +1,6 @@
 package org.czareg.codewars.survive.the.attack;
 
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
@@ -32,33 +33,54 @@ attackers=[ 1, 3, 5, 7 ]   defenders=[ 2, 4, 0, 8 ]
 public class AttackSimulator {
 
     public static boolean block(int[] attackers, int[] defenders) {
-        int attackerSurvivors = 0;
-        int defenderSurvivors = 0;
-        int maxIndex = Math.max(attackers.length, defenders.length);
-        for (int index = 0; index < maxIndex; index++) {
-            int attackerPower = getPower(index, attackers);
-            int defenderPower = getPower(index, defenders);
-            if (defenderPower > attackerPower) {
-                defenderSurvivors++;
-            } else if (defenderPower < attackerPower) {
-                attackerSurvivors++;
-            }
-        }
-        if (attackerSurvivors > defenderSurvivors) {
-            return false;
-        } else if (attackerSurvivors < defenderSurvivors) {
-            return true;
-        } else {
-            int initialAttackPower = Arrays.stream(attackers).sum();
-            int initialDefenderPower = Arrays.stream(defenders).sum();
-            return initialDefenderPower >= initialAttackPower;
-        }
+        Attack attack = new Attack(attackers, defenders);
+        attack.simulate();
+        return attack.isSurvived();
     }
 
-    private static int getPower(int index, int[] array) {
-        if (index < array.length) {
-            return array[index];
+    @RequiredArgsConstructor
+    class Attack {
+
+        private final int[] attackers;
+        private final int[] defenders;
+
+        private int attackerSurvivors = 0;
+        private int defenderSurvivors = 0;
+
+        void simulate() {
+            int maxIndex = Math.max(attackers.length, defenders.length);
+            for (int index = 0; index < maxIndex; index++) {
+                int attackerPower = getPower(index, attackers);
+                int defenderPower = getPower(index, defenders);
+                if (defenderPower > attackerPower) {
+                    defenderSurvivors++;
+                } else if (defenderPower < attackerPower) {
+                    attackerSurvivors++;
+                }
+            }
         }
-        return -1;
+
+        boolean isSurvived() {
+            if (attackerSurvivors > defenderSurvivors) {
+                return false;
+            } else if (attackerSurvivors < defenderSurvivors) {
+                return true;
+            } else {
+                int initialAttackPower = getInitialPower(attackers);
+                int initialDefenderPower = getInitialPower(defenders);
+                return initialDefenderPower >= initialAttackPower;
+            }
+        }
+
+        private int getInitialPower(int[] soldiers) {
+            return Arrays.stream(soldiers).sum();
+        }
+
+        private static int getPower(int index, int[] array) {
+            if (index < array.length) {
+                return array[index];
+            }
+            return -1;
+        }
     }
 }
