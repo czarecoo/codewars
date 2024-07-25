@@ -33,32 +33,52 @@ If there are multiple mountain passes with the same length, return the one with 
 @UtilityClass
 class LongestMountainPassCalculator {
 
-    static Result calculate(int[] mountains, int initialEnergyLevel) {
-        int maxLength = 0;
-        int startIdx = 0;
 
-        for (int i = 0; i < mountains.length; i++) {
-            int energy = initialEnergyLevel;
-            int length = 1;
-            int j = i;
-            while (j < mountains.length - 1) {
-                int cost = mountains[j + 1] - mountains[j];
-                if (cost <= 0 || energy >= cost) {
-                    if (cost > 0) {
-                        energy -= cost;
+    /*
+    Sliding Window: The end pointer expands the window by moving right. For each position, compute the energy cost of moving to the next mountain.
+    Energy Management: If energy becomes negative, move the slidingWindowStartIndex to the right until the energy is non-negative again.
+    Length Calculation: The length of the current valid window is updated, and if it’s the longest found so far, update longestMountainPass and startIndexOfLongestMountainPass.
+    This approach ensures that each mountain is processed in constant time, leading to an overall time complexity of O(n).
+    */
+    static Result calculate(int[] mountains, int initialEnergyLevel) {
+        int longestMountainPass = 0;
+        int startIndexOfLongestMountainPass = 0;
+
+        int slidingWindowStartIndex = 0;
+        int energy = initialEnergyLevel;
+        for (int slidingWindowEndIndex = 0; slidingWindowEndIndex < mountains.length; slidingWindowEndIndex++) {
+            // Calculate the cost to move from the previous mountain to the current one
+            if (slidingWindowEndIndex > 0) {
+                int cost = mountains[slidingWindowEndIndex] - mountains[slidingWindowEndIndex - 1];
+                if (cost > 0) {
+                    energy -= cost;
+                }
+            }
+
+            // While energy is negative, move start index to the right and adjust energy
+            while (energy < 0) {
+                if (slidingWindowStartIndex < slidingWindowEndIndex) {
+                    int startCost = mountains[slidingWindowStartIndex + 1] - mountains[slidingWindowStartIndex];
+                    if (startCost > 0) {
+                        energy += startCost;
                     }
-                    j++;
-                    length++;
+                    slidingWindowStartIndex++;
                 } else {
+                    // If start catches up with end, break the loop
                     break;
                 }
             }
-            if (length > maxLength) {
-                maxLength = length;
-                startIdx = i;
+
+            // Calculate current length of the window
+            int currentLength = slidingWindowEndIndex - slidingWindowStartIndex + 1;
+
+            // Update new result
+            if (currentLength > longestMountainPass) {
+                longestMountainPass = currentLength;
+                startIndexOfLongestMountainPass = slidingWindowStartIndex;
             }
         }
 
-        return new Result(maxLength, startIdx);
+        return new Result(longestMountainPass, startIndexOfLongestMountainPass);
     }
 }
