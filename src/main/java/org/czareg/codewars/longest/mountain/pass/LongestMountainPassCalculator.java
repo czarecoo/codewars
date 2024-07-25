@@ -31,20 +31,27 @@ start_index: The initial index from where you should start the mountain pass.
 If there are multiple mountain passes with the same length, return the one with the smallest initial index.
  */
 @UtilityClass
-class LongestMountainPass {
+class LongestMountainPassCalculator {
 
-    static Result longestMountainPass(int[] mountains, int initialEnergyLevel) {
+    static Result calculate(int[] mountains, int initialEnergyLevel) {
         int maxLength = 0;
         int startIdx = 0;
 
         for (int i = 0; i < mountains.length; i++) {
             int energy = initialEnergyLevel;
-            int length = 0;
+            int length = 1;
             int j = i;
-            while (j < mountains.length - 1 && (energy - (mountains[j + 1] - mountains[j])) >= 0) {
-                energy -= (mountains[j + 1] - mountains[j]);
-                j++;
-                length++;
+            while (j < mountains.length - 1) {
+                int cost = mountains[j + 1] - mountains[j];
+                if (cost <= 0 || energy >= cost) {
+                    if (cost > 0) {
+                        energy -= cost;
+                    }
+                    j++;
+                    length++;
+                } else {
+                    break;
+                }
             }
             if (length > maxLength) {
                 maxLength = length;
