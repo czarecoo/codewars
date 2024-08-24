@@ -31,32 +31,27 @@ class InverterTest {
     void randomTests() {
         for (int i = 0; i < 50; i++) {
             int[] input = getRandomArray();
-            int[] expected = solution(input);
-            assertEquals(Arrays.toString(expected), Arrays.toString(Inverter.invert(input)));
+            assertEquals(Arrays.toString(solution(input)), Arrays.toString(Inverter.invert(input)));
         }
     }
 
     public static int[] solution(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            array[i] *= -1;
+        int[] ints = Arrays.copyOf(array, array.length);
+        for (int i = 0; i < ints.length; i++) {
+            ints[i] *= -1;
         }
-        return array;
-    }
-
-    public static boolean getRandomBoolean() {
-        return Math.random() < 0.5;
-    }
-
-    public static int getRandomInt() {
-        int ranNum = (int) (Math.random() * 100);
-        return getRandomBoolean() ? ranNum : -ranNum;
+        return ints;
     }
 
     public static int[] getRandomArray() {
-        int[] ranArray = new int[getRandomInt()];
+        int[] ranArray = new int[rand(5, 1000)];
         for (int x = 0; x < ranArray.length; x++) {
-            ranArray[x] = getRandomInt();
+            ranArray[x] = rand(-100, 100);
         }
         return ranArray;
+    }
+
+    public static int rand(int min, int max) {
+        return (int) (Math.random() * ((max - min) + 1)) + min;
     }
 }

@@ -17,9 +17,9 @@ The input is a string of only digits
 The numbers are positives
  */
 @UtilityClass
-public class BigNumberAdder {
+class BigNumberAdder {
 
-    public static String add(@NonNull String a, @NonNull String b) {
+    static String add(@NonNull String a, @NonNull String b) {
         //return new BigInteger(a).add(new BigInteger(b)).toString(); //SINCE WHEN IS KNOWLEDGE CONSIDERED "CHEATING"?
         StringBuilder stringBuilder = new StringBuilder();
         int maxAIndex = a.length() - 1;

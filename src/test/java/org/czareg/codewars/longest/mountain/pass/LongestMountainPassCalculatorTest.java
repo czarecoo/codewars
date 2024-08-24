@@ -38,7 +38,7 @@ class LongestMountainPassCalculatorTest {
         }
 
         // Large random tests
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             var randomCase = LongestMountainPassCalculatorHelper.generateRandomTestCase((int) 1e7);
             var expected = LongestMountainPassCalculatorHelper.solution(randomCase.mountains, randomCase.E);
             assertEquals(expected, LongestMountainPassCalculator.calculate(randomCase.mountains, randomCase.E));

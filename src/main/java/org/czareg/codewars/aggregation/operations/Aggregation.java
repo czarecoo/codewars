@@ -15,9 +15,9 @@ Implement the method using Java 8 Stream API.
 Have Fun!
  */
 @UtilityClass
-public class Aggregation {
+class Aggregation {
 
-    public static Map<String, Double> getAverageGradeByDepartment(Stream<Student> students) {
+    static Map<String, Double> getAverageGradeByDepartment(Stream<Student> students) {
         return students.collect(Collectors.groupingBy(Student::getDepartment, Collectors.averagingDouble(Student::getGrade)));
     }
 }

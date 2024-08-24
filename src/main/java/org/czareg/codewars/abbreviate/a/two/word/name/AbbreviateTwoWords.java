@@ -11,9 +11,9 @@ Sam Harris => S.H
 patrick feeney => P.F
  */
 @UtilityClass
-public class AbbreviateTwoWords {
+class AbbreviateTwoWords {
 
-    public static String abbrevName(String name) {
+    static String abbrevName(String name) {
         String[] split = name.split(" ");
         char nameLetter = split[0].charAt(0);
         char surNameLetter = split[1].charAt(0);

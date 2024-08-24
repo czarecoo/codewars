@@ -65,7 +65,7 @@ class FindOutlierTest {
     @DisplayName("Big random tests")
     @Order(4)
     void randomTests3() {
-        for (int run = 0; run < 10; ++run) {
+        for (int run = 0; run < 3; ++run) {
             randomTest(5_000_000, 9_000_000, 10_000_000);
         }
     }

@@ -18,7 +18,7 @@ class AggregationTest {
     private Student[] randomStudents;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         Student galina = new Student("Galina", 95, "Philology", Student.Gender.FEMALE);
         Student anton = new Student("Anton", 90, "CS", Student.Gender.MALE);
         Student jack = new Student("Jack", 82, "Philology", Student.Gender.MALE);

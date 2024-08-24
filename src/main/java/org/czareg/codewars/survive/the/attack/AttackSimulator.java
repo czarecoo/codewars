@@ -29,13 +29,12 @@ attackers=[ 1, 3, 5, 7 ]   defenders=[ 2, 4, 0, 8 ]
 //return true
  */
 @UtilityClass
-public class AttackSimulator {
+class AttackSimulator {
 
-    public static boolean block(int[] attackers, int[] defenders) {
+    static boolean block(int[] attackers, int[] defenders) {
         SimulationResult simulationResult = Simulator.simulate(attackers, defenders);
         return SurvivalChecker.isSurvived(simulationResult);
     }
-
 
     @UtilityClass
     class Simulator {

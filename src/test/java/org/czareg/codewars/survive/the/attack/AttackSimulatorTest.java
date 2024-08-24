@@ -41,9 +41,13 @@ class AttackSimulatorTest {
     }
 
     @Test
+    void additionalTest() {
+        assertFalse(solution(new int[]{10, 14, 40, 61, 53}, new int[]{0, 63, 52, 39, 29}));
+    }
+
+    @Test
     void randomTest() {
         Random random = new Random();
-
         for (int i = 1; i <= 200; i++) {
             int[] attackers = new int[random.nextInt(10)];
             int[] defenders = new int[random.nextInt(10)];
@@ -53,16 +57,17 @@ class AttackSimulatorTest {
             for (int j = 0; j < defenders.length; j++) {
                 defenders[j] = random.nextInt(100);
             }
-            assertEquals(solution(attackers, defenders), AttackSimulator.block(attackers, defenders));
+            boolean expected = solution(attackers, defenders);
+            boolean actual = AttackSimulator.block(attackers, defenders);
+            assertEquals(expected, actual);
         }
     }
 
     public static boolean solution(int[] attackers, int[] defenders) {
         int attackerSurvivors = 0;
         int defenderSurvivors = 0;
-        int maxLength = 0;
+        int maxLength = attackers.length;
         if (attackers.length < defenders.length) {
-            maxLength = attackers.length;
             defenderSurvivors += defenders.length - maxLength;
         } else if (attackers.length > defenders.length) {
             maxLength = defenders.length;

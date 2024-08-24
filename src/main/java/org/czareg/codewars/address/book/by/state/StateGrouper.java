@@ -37,9 +37,9 @@ The tests only contains CA, MA, OK, PA, VA, AZ, ID, IN for states.
 You can see another example in the "Sample tests".
  */
 @UtilityClass
-public class StateGrouper {
+class StateGrouper {
 
-    public static String group(String str) {
+    static String group(String str) {
         Map<String, List<Address>> addressesByState = str.lines()
                 .map(Address::of)
                 .collect(groupingBy(Address::state));

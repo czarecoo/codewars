@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Student {
+class Student {
 
     private String name;
     private double grade;
