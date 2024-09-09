@@ -16,9 +16,9 @@ Distance between two points. Remember that you are working with only 2 dimension
 Tests will have a precision of 3 decimal points. Good luck!
  */
 @UtilityClass
-public class Radar {
+class Radar {
 
-    public static double calculateTime(double[] p1, double[] p2) {
+    static double calculateTime(double[] p1, double[] p2) {
         Point point1 = Point.of(p1);
         Point point2 = Point.of(p2);
         double distancePer5 = Point.calculateDistance(point1, point2);

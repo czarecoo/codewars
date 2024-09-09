@@ -15,11 +15,11 @@ Allowed characters are uppercase / lowercase latin letters and digits from 0 to 
 No whitespaces / underscore
  */
 @UtilityClass
-public class SecureTester {
+class SecureTester {
 
     private static final Pattern ALPHANUMERIC_WHOLE_STRING_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
 
-    public static boolean alphanumeric(@NonNull String s) {
+    static boolean alphanumeric(@NonNull String s) {
         return ALPHANUMERIC_WHOLE_STRING_PATTERN.matcher(s).matches();
     }
 }

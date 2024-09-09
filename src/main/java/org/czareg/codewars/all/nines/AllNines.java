@@ -11,11 +11,11 @@ Examples:
 NOTE: Although x ≤ 4000, m can be very very LARGE. Where necessary, the way of handling big integers appropriate to the language should be used.
  */
 @UtilityClass
-public class AllNines {
+class AllNines {
 
     private static final BigInteger NINE = BigInteger.valueOf(9);
 
-    public static BigInteger allNines(BigInteger x) {
+    static BigInteger allNines(BigInteger x) {
         int maxDigits = Math.max(2, x.intValue());
         BigInteger xm = NINE;
         for (int i = 1; i < maxDigits; i++) {

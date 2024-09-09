@@ -16,9 +16,9 @@ Note: if this seems too simple for you try the next level
 Note2: the input data can be: boolean array, array of objects, array of string arrays, array of number arrays... 😕
  */
 @UtilityClass
-public class ArrayPrinter {
+class ArrayPrinter {
 
-    public static String printArray(Object[] array) {
+    static String printArray(Object[] array) {
         return Arrays.stream(array)
                 .map(Object::toString)
                 .collect(Collectors.joining(","));

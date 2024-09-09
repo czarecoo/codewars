@@ -18,15 +18,15 @@ B = Black
 W = White
  */
 @UtilityClass
-public class MagpipesFamily {
+class MagpipesFamily {
 
-    public static boolean child(final String bird1, final String bird2) {
+    static boolean child(final String bird1, final String bird2) {
         validateLengths(bird1, bird2);
         int differences = countDifferences(bird1, bird2);
         return differences == 1 || differences == 2;
     }
 
-    public static boolean grandchild(final String bird1, final String bird2) {
+    static boolean grandchild(final String bird1, final String bird2) {
         validateLengths(bird1, bird2);
         if (bird1.length() == 1) {
             return bird1.equals(bird2);

@@ -19,9 +19,9 @@ If a value is present in b, all of its occurrences must be removed from the othe
 (1, 2, 2, 2, 3), (2) => (1, 3)
  */
 @UtilityClass
-public class ArrayDiff {
+class ArrayDiff {
 
-    public static int[] arrayDiff(int[] a, int[] b) {
+    static int[] arrayDiff(int[] a, int[] b) {
         Set<Integer> toRemove = Arrays.stream(b)
                 .boxed()
                 .collect(toSet());

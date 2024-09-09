@@ -19,9 +19,9 @@ Examples
 "Buckethead" is an anagram of "DeathCubeK"
  */
 @UtilityClass
-public class AnagramDetector {
+class AnagramDetector {
 
-    public static boolean isAnagram(@NonNull String test, @NonNull String original) {
+    static boolean isAnagram(@NonNull String test, @NonNull String original) {
         Map<Character, Long> originalCharacterCount = groupCharacterByCount(original.toLowerCase());
         Map<Character, Long> testCharacterCount = groupCharacterByCount(test.toLowerCase());
         return originalCharacterCount.equals(testCharacterCount);

@@ -11,9 +11,9 @@ Example(Input => Output):
 0 => [0]
  */
 @UtilityClass
-public class Converter {
+class Converter {
 
-    public static int[] digitize(long n) {
+    static int[] digitize(long n) {
         return new StringBuilder()
                 .append(n)
                 .reverse()

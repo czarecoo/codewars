@@ -20,7 +20,7 @@ Input/Output
 [output] integer array An array of number of 100, 50 and 20 dollar bills needed to complete the withdraw (in that order).
  */
 @UtilityClass
-public class Atm {
+class Atm {
 
     private static final Map<Integer, int[]> RESULTS = new HashMap<>();
 
@@ -37,7 +37,7 @@ public class Atm {
         RESULTS.put(130, new int[]{0, 1, 4});
     }
 
-    public static int[] withdraw(int n) {
+    static int[] withdraw(int n) {
         if (RESULTS.containsKey(n)) {
             return RESULTS.get(n);
         }
