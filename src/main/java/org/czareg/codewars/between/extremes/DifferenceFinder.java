@@ -14,9 +14,9 @@ For example:
 The array will contain a minimum of two elements. Input data range guarantees that max-min will cause no integer overflow.
  */
 @UtilityClass
-public class DifferenceFinder {
+class DifferenceFinder {
 
-    public static int betweenExtremes(int[] numbers) {
+    static int betweenExtremes(int[] numbers) {
         var statistics = Arrays.stream(numbers).summaryStatistics();
         return statistics.getMax() - statistics.getMin();
     }

@@ -44,9 +44,9 @@ sum of all digits to the right of the middle digit(s) -> 20
 10 and 20 are not equal, so it's not balanced.
 */
 @UtilityClass
-public class BalancedNumber {
+class BalancedNumber {
 
-    public static String balancedNum(long number) {
+    static String balancedNum(long number) {
         String digits = String.valueOf(number);
         String firstPart = getFirstPart(digits);
         String secondPart = getSecondPart(digits);

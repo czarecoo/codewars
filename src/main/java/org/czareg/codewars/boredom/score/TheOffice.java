@@ -31,7 +31,7 @@ Depending on the cumulative score of the team, return the appropriate sentiment:
 100 or over: 'party time!!'
  */
 @UtilityClass
-public class TheOffice {
+class TheOffice {
 
     private static final Map<String, Integer> BOREDOM_SCORE = Map.of(
             "accounts", 1,
@@ -46,7 +46,7 @@ public class TheOffice {
             "pissing about", 25
     );
 
-    public static String boredom(Person[] staff) {
+    static String boredom(Person[] staff) {
         int sum = calculateSum(staff);
         return sumToSentiment(sum);
     }

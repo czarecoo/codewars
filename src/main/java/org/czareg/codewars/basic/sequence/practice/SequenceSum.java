@@ -23,9 +23,9 @@ Examples
  7  -->  [0,  1,  3,  6,  10,  15,  21,  28]
  */
 @UtilityClass
-public class SequenceSum {
+class SequenceSum {
 
-    public static int[] sumOfN(int n) {
+    static int[] sumOfN(int n) {
         int sign = Integer.signum(n);
         return IntStream.rangeClosed(0, Math.abs(n))
                 .map(i -> sign * calculateSum(i))

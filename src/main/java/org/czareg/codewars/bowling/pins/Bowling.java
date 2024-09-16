@@ -26,11 +26,11 @@ The pins rows are separated by a newline (\n)
 Each Line must be 7 chars long
 Fill the missing pins with a space character ( )
  */
-public class Bowling {
+class Bowling {
 
     private static final String PINS = "7 8 9 0\n 4 5 6 \n  2 3  \n   1   ";
 
-    public String bowlingPins(int[] arr) {
+    String bowlingPins(int[] arr) {
         List<Integer> missing = IntStream.of(arr).boxed().collect(Collectors.toList());
         if (missing.contains(10)) {
             missing.set(missing.indexOf(10), 0);

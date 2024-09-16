@@ -18,7 +18,7 @@ The remaining spaces (between letters and/or words) are to be treated as any oth
 Trailing spaces should be removed in the resulting string (and also in its' substrings!).
  */
 @UtilityClass
-public class BlockLetterPrinter {
+class BlockLetterPrinter {
 
     private static final String TEMPLATE = """
              AAA  BBBB   CCC  DDDD  EEEEE FFFFF  GGG  H   H IIIII JJJJJ K   K L     M   M N   N  OOO  PPPP   QQQ  RRRR   SSS  TTTTT U   U V   V W   W X   X Y   Y ZZZZZ \s
@@ -30,7 +30,7 @@ public class BlockLetterPrinter {
             A   A BBBB   CCC  DDDD  EEEEE F      GGG  H   H IIIII JJJJ  K   K LLLLL M   M N   N  OOO  P      QQQQ R   R  SSS    T    UUU    V    W W  X   X   Y   ZZZZZ \s
             """;
 
-    public static String blockPrint(String string) {
+    static String blockPrint(String string) {
         String letters = string.strip().toUpperCase();
         List<String> list = Arrays.asList(TEMPLATE.split("\n"));
         StringBuilder stringBuilder = new StringBuilder();

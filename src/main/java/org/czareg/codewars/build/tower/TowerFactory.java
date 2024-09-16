@@ -27,9 +27,9 @@ And a tower with 6 floors looks like this:
 ]
  */
 @UtilityClass
-public class TowerFactory {
+class TowerFactory {
 
-    public static String[] floors(int numberOfFloors) {
+    static String[] floors(int numberOfFloors) {
         if (numberOfFloors <= 0) {
             return new String[0];
         }

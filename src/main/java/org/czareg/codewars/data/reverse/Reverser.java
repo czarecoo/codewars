@@ -25,11 +25,11 @@ The data is given in an array as such:
 Note: In the C and NASM languages you are given the third parameter which is the number of segment blocks.
  */
 @UtilityClass
-public class Reverser {
+class Reverser {
 
     private static final int BITS = 8;
 
-    public static int[] dataReverse(int[] data) {
+    static int[] dataReverse(int[] data) {
         int blocks = data.length / 8;
         return IntStream.range(0, blocks)
                 .mapToObj(chunkIndex -> {

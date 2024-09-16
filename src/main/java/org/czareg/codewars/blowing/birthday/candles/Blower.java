@@ -51,11 +51,11 @@ Move 5 | "000(1)" -> "0000"
 This should return 5.
  */
 @UtilityClass
-public class Blower {
+class Blower {
 
     private static final int CANDLES_PER_BLOW = 3;
 
-    public static int blowCandles(String str) {
+    static int blowCandles(String str) {
         int blows = 0;
         int[] candles = str.chars().map(Character::getNumericValue).toArray();
         while (atLeastOneCandleIsLit(candles)) {

@@ -21,9 +21,9 @@ Examples:
 "true", "trust" => "{t={tr={tru={true=null, trus={trust=null}}}}}"
  */
 @UtilityClass
-public class TrieFactory {
+class TrieFactory {
 
-    public static Map<String, Object> buildTrie(String... words) {
+    static Map<String, Object> buildTrie(String... words) {
         if (words == null || words.length == 0) {
             return Map.of();
         }

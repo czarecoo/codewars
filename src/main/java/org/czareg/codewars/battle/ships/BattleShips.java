@@ -55,9 +55,9 @@ Third attack: `boat 1` was damaged, which increases the `points` by `0.5`
 No whole boats sank
  */
 @UtilityClass
-public class BattleShips {
+class BattleShips {
 
-    public static Map<String, Double> damagedOrSunk(final int[][] board, final int[][] attacks) {
+    static Map<String, Double> damagedOrSunk(final int[][] board, final int[][] attacks) {
         Map<Integer, Long> shipNumberByParts = toShipNumberByParts(board);
         Map<Integer, Long> shipNumberByHits = toShipNumberByHits(board, attacks);
         double sunk = calculateSunk(shipNumberByParts, shipNumberByHits);

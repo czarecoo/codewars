@@ -12,7 +12,7 @@ class Student {
     private String department;
     private Gender gender;
 
-    public enum Gender {
+    enum Gender {
         MALE, FEMALE
     }
 }

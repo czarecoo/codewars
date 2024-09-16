@@ -19,7 +19,7 @@ Examples(Operator, value1, value2) --> output
 ('/', 49, 7) --> 7
  */
 @UtilityClass
-public class BasicOperations {
+class BasicOperations {
 
     private static final Map<String, BinaryOperator<Integer>> OPS = Map.of(
             "+", Integer::sum,
@@ -28,7 +28,7 @@ public class BasicOperations {
             "/", (a, b) -> a / b
     );
 
-    public static Integer basicMath(String op, int v1, int v2) {
+    static Integer basicMath(String op, int v1, int v2) {
         return Optional.ofNullable(OPS.get(op))
                 .orElseThrow()
                 .apply(v1, v2);
